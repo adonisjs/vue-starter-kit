@@ -1,7 +1,11 @@
+import './css/app.css'
+import 'vue-sonner/style.css'
+import Layout from '~/layouts/default.vue'
 import { createInertiaApp } from '@inertiajs/vue3'
-import Layout from './components/layouts/default.vue'
 import { createApp, type DefineComponent, h } from 'vue'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
+import { TuyauProvider } from '@adonisjs/inertia/vue'
+import { client } from '~/client'
 
 const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
 
@@ -15,11 +19,11 @@ createInertiaApp({
     )
   },
   setup({ el, App, props, plugin }) {
-    createApp({ render: () => h(App, props) })
+    createApp({ render: () => h(TuyauProvider, { client }, { default: () => h(App, props) }) })
       .use(plugin)
       .mount(el)
   },
   progress: {
-    color: '#5468FF',
+    color: '#4B5563',
   },
 })

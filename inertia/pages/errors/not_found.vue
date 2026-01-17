@@ -1,9 +1,7 @@
-<script setup lang="ts">
-defineProps<{ error: { message: string } }>()
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="container">
-    <h1>{{ error.message }}</h1>
+  <div>
+    <h1>Page not found</h1>
   </div>
 </template>

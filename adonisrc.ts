@@ -1,6 +1,7 @@
 import { indexPages } from '@adonisjs/inertia'
 import { indexEntities } from '@adonisjs/core'
 import { defineConfig } from '@adonisjs/core/app'
+import { generateRegistry } from '@tuyau/core/hooks'
 
 export default defineConfig({
   /*
@@ -51,6 +52,7 @@ export default defineConfig({
     () => import('@adonisjs/lucid/database_provider'),
     () => import('@adonisjs/cors/cors_provider'),
     () => import('@adonisjs/inertia/inertia_provider'),
+    () => import('@adonisjs/auth/auth_provider'),
   ],
 
   /*
@@ -84,6 +86,11 @@ export default defineConfig({
         name: 'functional',
         timeout: 30000,
       },
+      {
+        files: ['tests/browser/**/*.spec(.ts|.js)'],
+        name: 'browser',
+        timeout: 300000,
+      },
     ],
     forceExit: false,
   },
@@ -113,9 +120,8 @@ export default defineConfig({
       indexEntities({
         transformers: { enabled: true, withSharedProps: true },
       }),
-      indexPages({
-        framework: 'vue3',
-      }),
+      indexPages({ framework: 'vue3' }),
+      generateRegistry(),
     ],
     buildStarting: [() => import('@adonisjs/vite/build_hook')],
   },
